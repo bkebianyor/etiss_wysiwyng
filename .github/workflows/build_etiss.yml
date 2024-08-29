@@ -11,6 +11,11 @@ on:
 env:
   BUILD_TYPE: Release
   SEAL5_PREBUILT_DIR: /home/runner/work/etiss_wysiwyng/etiss_wysiwyng/seal5_prebuilt
+  RISCV_GCC_NAME: riscv32-unknown-elf
+  ARCH: rv32imc
+  ETISS_ARCH: RV32IMACFD
+  PROG: hello_world
+  ABI: ilp32
 
 jobs:
   setup-run-M2ISAR:
@@ -133,7 +138,7 @@ jobs:
       with:
         name: demo-export
         github-token: ${{ secrets.REPO_ACCESS_TOKEN }}   
-        repository: kebi-be/seal5
+        repository: bkebianyor/seal5
         path: seal5_prebuilt
         run-id: 10578440700
 
@@ -161,8 +166,6 @@ jobs:
          wget https://syncandshare.lrz.de/dl/fi2p5Ds5PHktjmZGKzR9tx/GCC/default/2023.09.27/Ubuntu/22.04/rv32imc_ilp32.tar.xz
          tar xvf rv32imc_ilp32.tar.xz
          rm rv32imc_ilp32.tar.xz
-         ls -al
-         pwd
     
     - name: Build ETISS RISCV Examples for Testing
       run: |
@@ -171,22 +174,8 @@ jobs:
         git clone https://github.com/tum-ei-eda/etiss_riscv_examples.git --branch s4emac --recursive
         RISCV_GCC_PREFIX=/home/runner/work/etiss_wysiwyng/etiss_wysiwyng/gnu
         # SEAL5_PREBUILT_DIR=/home/runner/work/etiss_wysiwyng/etiss_wysiwyng/seal5_prebuilt
-        RISCV_GCC_NAME=riscv32-unknown-elf
-        ARCH=rv32imc
-        ETISS_ARCH=RV32IMACFD
-        PROG=hello_world
-        ABI=ilp32
-        ls $SEAL5_PREBUILT_DIR
         export PATH=$RISCV_GCC_PREFIX/bin/:$SEAL5_PREBUILT_DIR/bin/:$PATH 
-        echo $PATH
         cd etiss_riscv_examples
-        #cd target_code/embench
-        #git clone https://github.com/embench/embench-iot.git
-        #cd embench-iot && git checkout 54fd9a0f10aabc662991567ca19ff3e61bfd3939
-        #ls -al 
-        #cd ../../..
-        #pwd
-
         mkdir build && cd build
         make --version
         cmake -DCMAKE_TOOLCHAIN_FILE=rv32gc-toolchain.cmake -DRISCV_TOOLCHAIN_PREFIX=$RISCV_GCC_PREFIX -DCMAKE_INSTALL_PREFIX=../install -DRISCV_ARCH=$ARCH -DRISCV_ABI=$ABI -DRISCV_TOOLCHAIN_PREFIX=$RISCV_GCC_PREFIX -DRISCV_TOOLCHAIN_BASENAME=$RISCV_GCC_NAME ..
