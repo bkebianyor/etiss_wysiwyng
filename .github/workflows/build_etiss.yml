@@ -133,21 +133,34 @@ jobs:
         github-token: ${{ secrets.REPO_ACCESS_TOKEN }}
         path: etiss_prebuilt
 
+    - name: Download Cached Seal5 Binaries
+      id: cache-seal5
+      uses: actions/cache@v4
+      env:
+        cache-name: cache-seal5-binaries
+      with:
+        path: ./seal5_prebuilt
+        key: gcc-binaries-${{ steps.date.outputs.date }}
+        restore-keys: |
+          seal5-binaries-
+        
+
+    - if: ${{ steps.cache-seal5.outputs.cache-hit != 'true' }} 
     - name: Download Seal5 Pre-built
       uses: actions/download-artifact@v4
       with:
-        name: demo-export
+        name: demo-install
         github-token: ${{ secrets.REPO_ACCESS_TOKEN }}   
         repository: bkebianyor/seal5
         path: seal5_prebuilt
-        run-id: 10578440700
+        run-id: 10613122287
 
-    - name: Unpack Seal5 Pre-Built
-      run: |
-        cd $SEAL5_PREBUILT_DIR
-        tar xvf seal5_llvm.tar.gz
-        rm seal5_llvm.tar.gz
-        ls -al
+    #- name: Unpack Seal5 Pre-Built
+      #run: |
+        #cd $SEAL5_PREBUILT_DIR
+        #tar xvf seal5_llvm.tar.gz
+        #rm seal5_llvm.tar.gz
+        #ls -al
             
     - name: Download Cached GCC Binaries
       id: cache-gcc
