@@ -12,10 +12,11 @@ env:
   BUILD_TYPE: Release
   SEAL5_PREBUILT_DIR: /home/runner/work/etiss_wysiwyng/etiss_wysiwyng/seal5_prebuilt
   RISCV_GCC_NAME: riscv32-unknown-elf
-  ARCH: rv32imc
-  ETISS_ARCH: RV32IMACFD
-  PROG: hello_world
+  ARCH: rv32imc_xs4emac
+  ETISS_ARCH: RV32IMCXS4EMAC
+  PROG: s4emac
   ABI: ilp32
+
 
 jobs:
   setup-run-M2ISAR:
