@@ -190,6 +190,7 @@ jobs:
         # SEAL5_PREBUILT_DIR=/home/runner/work/etiss_wysiwyng/etiss_wysiwyng/seal5_prebuilt
         export PATH=$RISCV_GCC_PREFIX/bin/:$SEAL5_PREBUILT_DIR/bin/:$PATH 
         ls -al $SEAL5_PREBUILT_DIR
+        chmod +x $SEAL5_PREBUILT_DIR/bin/*
         cd etiss_riscv_examples
         mkdir build && cd build
         make --version
