@@ -140,7 +140,7 @@ jobs:
         cache-name: cache-seal5-binaries
       with:
         path: ./seal5_prebuilt
-        key: gcc-binaries-${{ steps.date.outputs.date }}
+        key: seal5-binaries-${{ steps.date.outputs.date }}
         restore-keys: |
           seal5-binaries-
         
