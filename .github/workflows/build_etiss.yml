@@ -208,5 +208,5 @@ jobs:
         pwd
         chmod +x etiss_prebuilt/bin/bare_etiss_processor
         ls -al etiss_riscv_examples/install/ini/
-        etiss_prebuilt/bin/bare_etiss_processor -i etiss_riscv_examples/install/ini/s4emac.ini
+        ./etiss_prebuilt/bin/bare_etiss_processor -ietiss_riscv_examples/install/ini/s4emac.ini --arch.cpu=$ETISS_ARCH
     needs: build-etiss
