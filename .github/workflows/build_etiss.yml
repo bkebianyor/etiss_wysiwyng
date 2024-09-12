@@ -209,6 +209,6 @@ jobs:
         chmod +x /home/runner/work/etiss_prebuilt/bin/bare_etiss_processor
         ls -al /home/runner/work/etiss_wysiwyng/etiss_wysiwyng/etiss_riscv_examples/install/ini/
         ls -al /home/runner/work/etiss_prebuilt
-        ls -al /home/runner/work/etiss_prebuilt
+        ls -al /home/runner/work/etiss_prebuilt/bin
         ./home/runner/work/etiss_prebuilt/bin/bare_etiss_processor -ietiss_riscv_examples/install/ini/s4emac.ini --arch.cpu=$ETISS_ARCH
     needs: build-etiss
