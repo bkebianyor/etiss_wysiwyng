@@ -10,7 +10,7 @@ on:
 
 env:
   BUILD_TYPE: Release
-  SEAL5_PREBUILT_DIR: /home/runner/work/etiss_wysiwyng/etiss_wysiwyng/seal5_prebuilt
+  SEAL5_PREBUILT_DIR: /home/runner/work/seal5_prebuilt
   RISCV_GCC_NAME: riscv32-unknown-elf
   ARCH: rv32imc_xs4emac
   ETISS_ARCH: RV32IMCXS4EMAC
@@ -107,7 +107,7 @@ jobs:
       
     - name: CMake config
       run: |
-        cmake -B etiss_build -S etiss_source -DCMAKE_INSTALL_PREFIX=etiss_prebuilt -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+        cmake -B etiss_build -S etiss_source -DCMAKE_INSTALL_PREFIX=/home/runner/work/etiss_prebuilt -DCMAKE_BUILD_TYPE=$BUILD_TYPE
         
     - name: CMake build
       run: |
@@ -121,7 +121,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: etiss_prebuilt
-        path: etiss_prebuilt   
+        path: /home/runner/work/etiss_prebuilt   
 
     
   test:
@@ -132,7 +132,7 @@ jobs:
       with:
         name: etiss_prebuilt
         github-token: ${{ secrets.REPO_ACCESS_TOKEN }}
-        path: etiss_prebuilt
+        path: /home/runner/work/etiss_prebuilt
 
     - name: Download Cached Seal5 Binaries
       id: cache-seal5
@@ -153,7 +153,7 @@ jobs:
         name: demo-install
         github-token: ${{ secrets.REPO_ACCESS_TOKEN }}   
         repository: bkebianyor/seal5
-        path: seal5_prebuilt
+        path: /home/runner/work/seal5_prebuilt
         run-id: 10631506372
 
     #- name: Unpack Seal5 Pre-Built
@@ -187,7 +187,7 @@ jobs:
         #git clone https://github.com/kebi-be/etiss_riscv_examples.git
         git clone https://github.com/bkebianyor/etiss_riscv_examples.git --branch s4emac --recursive
         RISCV_GCC_PREFIX=/home/runner/work/etiss_wysiwyng/etiss_wysiwyng/gnu
-        # SEAL5_PREBUILT_DIR=/home/runner/work/etiss_wysiwyng/etiss_wysiwyng/seal5_prebuilt
+        # SEAL5_PREBUILT_DIR=/home/runner/work/seal5_prebuilt
         export PATH=$RISCV_GCC_PREFIX/bin/:$SEAL5_PREBUILT_DIR/bin/:$PATH 
         ls -al $SEAL5_PREBUILT_DIR
         chmod +x $SEAL5_PREBUILT_DIR/bin/*
@@ -206,7 +206,8 @@ jobs:
       run: |
         echo "Finished"
         pwd
-        chmod +x etiss_prebuilt/bin/bare_etiss_processor
-        ls -al etiss_riscv_examples/install/ini/
+        chmod +x /home/runner/work/etiss_prebuilt/bin/bare_etiss_processor
+        ls -al /home/runner/work/etiss_riscv_examples/install/ini/
+        cd /home/runner/work/
         ./etiss_prebuilt/bin/bare_etiss_processor -ietiss_riscv_examples/install/ini/s4emac.ini --arch.cpu=$ETISS_ARCH
     needs: build-etiss
