@@ -217,5 +217,7 @@ jobs:
       #if: ${{ github.event_name != 'repository_dispatch' }}    
       with:
          token: ${{ secrets.REPO_ACCESS_TOKEN }}
-         repository: bkebianyor/seal5
+         repository: ${{ 'bkebianyor/seal5' }}
+         event-type: etiss_event
          client-payload: '{"triggered_by": "${{ github.repository }}", "run_id": "${{ github.run_id }}"}'
+         
