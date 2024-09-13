@@ -2,7 +2,7 @@ name: Build ETISS
 
 on:
   repository_dispatch:
-    types: [s4e_cdl_event, seal5-event]
+    types: [s4ec-dl-event, seal5-event]
 #push:
  #   branches: [ "master" ]
  # pull_request:
@@ -214,10 +214,10 @@ jobs:
        
     - name: Send ETISS RUN-ID to Seal5
       uses: peter-evans/repository-dispatch@v3
-      #if: ${{ github.event_name != 'repository_dispatch' }}    
+      #if: ${{ github._name != 'repository_dispatch' }}    
       with:
          token: ${{ secrets.REPO_ACCESS_TOKEN }}
          repository: ${{ 'bkebianyor/seal5' }}
-         event-type: etiss_event
+         event-type: etiss-event
          client-payload: '{"triggered_by": "${{ github.repository }}", "run_id": "${{ github.run_id }}"}'
          
