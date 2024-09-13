@@ -2,7 +2,7 @@ name: Build ETISS
 
 on:
   repository_dispatch:
-    types: [s4ec-dl-event, seal5-event]
+    types: [s4e-cdl-event, seal5-event]
 #push:
  #   branches: [ "master" ]
  # pull_request:
