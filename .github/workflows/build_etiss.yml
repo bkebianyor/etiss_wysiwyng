@@ -212,7 +212,7 @@ jobs:
         export PATH=$RISCV_GCC_PREFIX/bin/:$SEAL5_PREBUILT_DIR/bin/:/home/runner/work/etiss_prebuilt/bin:$PATH 
         bare_etiss_processor -ietiss_riscv_examples/install/ini/s4emac.ini --arch.cpu=$ETISS_ARCH
        
-    - name: Trigger ETISS-RISCV-EXAMPLE Build
+    - name: Send ETISS RUN-ID to Seal5
       uses: peter-evans/repository-dispatch@v3
       #if: ${{ github.event_name != 'repository_dispatch' }}    
       with:
