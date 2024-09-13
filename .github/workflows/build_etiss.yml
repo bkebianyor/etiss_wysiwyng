@@ -124,6 +124,7 @@ jobs:
    
   test:
     runs-on: ubuntu-latest
+    needs: build-etiss
     steps:
     - name: Download Pre-built ETISS Artifact
       uses: actions/download-artifact@v4
@@ -210,4 +211,11 @@ jobs:
         ls -al /home/runner/work/etiss_prebuilt/bin
         export PATH=$RISCV_GCC_PREFIX/bin/:$SEAL5_PREBUILT_DIR/bin/:/home/runner/work/etiss_prebuilt/bin:$PATH 
         bare_etiss_processor -ietiss_riscv_examples/install/ini/s4emac.ini --arch.cpu=$ETISS_ARCH
-    needs: build-etiss
+       
+    - name: Trigger ETISS-RISCV-EXAMPLE Build
+      uses: peter-evans/repository-dispatch@v3
+      #if: ${{ github.event_name != 'repository_dispatch' }}    
+      with:
+         token: ${{ secrets.REPO_ACCESS_TOKEN }}
+         repository: bkebianyor/seal5
+         client-payload: '{"triggered_by": "${{ github.repository }}", "run_id": "${{ github.run_id }}"}'
