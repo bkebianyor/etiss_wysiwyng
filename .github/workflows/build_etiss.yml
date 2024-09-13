@@ -17,7 +17,6 @@ env:
   PROG: s4emac
   ABI: ilp32
 
-
 jobs:
   setup-run-M2ISAR:
     runs-on: ubuntu-22.04
@@ -122,8 +121,7 @@ jobs:
       with:
         name: etiss_prebuilt
         path: /home/runner/work/etiss_prebuilt   
-
-    
+   
   test:
     runs-on: ubuntu-latest
     steps:
