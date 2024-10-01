@@ -1,4 +1,4 @@
-sname: Build ETISS
+name: Build ETISS
 
 on:
   repository_dispatch:
